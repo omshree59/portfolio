@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ✦ Creative Developer Portfolio
 
-## Getting Started
+An immersive, high-performance personal portfolio engineered to showcase modern web development, intelligent systems, and interactive digital experiences. Built with a focus on fluid animations, hardware-accelerated graphics, and premium typography.
 
-First, run the development server:
+**[Live Preview ↗](https://omshree59.vercel.app/)**
+
+---
+
+## ⚡ Core Features
+
+* **Cinematic Scrollytelling:** A custom-built, 89-frame sequence canvas animation tied to scroll progress using spring physics for buttery-smooth interpolation.
+* **Dynamic Resolution Scaling:** The canvas automatically multiplies its resolution based on the user's `devicePixelRatio` to ensure crystal-clear rendering on Retina/High-DPI displays.
+* **Bento Grid Architecture:** An asymmetric, modern project showcase featuring glassmorphism cards and hover-reveal "Ghost Texture" background images.
+* **Scroll-Triggered Timeline:** A responsive, alternating vertical timeline detailing professional journey milestones and hackathon experiences, powered by intersection observers.
+* **Tailwind V4 Engine:** Utilizing the brand-new Tailwind CSS v4 for zero-config, lightning-fast utility class styling.
+
+## 🛠 Tech Stack
+
+* **Framework:** [Next.js](https://nextjs.org/) (App Router, React 18)
+* **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+* **Animations:** [Framer Motion](https://www.framer.com/motion/)
+* **Icons:** [Lucide React](https://lucide.dev/)
+* **Language:** TypeScript
+
+## 📁 Selected Works Featured
+
+1. **CivicFix AI:** An intelligent platform streamlining civic issue reporting using Machine Learning.
+2. **Cloud5 Chatbot:** A highly optimized, custom-built AI chatbot architecture.
+3. **NeuralShield-AI:** Open-source development for email spam filtering and PDF summarization.
+4. **Ecoquest (SIH Qualifier):** High-performance frontend UI built during the CodSoft internship.
+5. **Procrastination Timer:** A sleek productivity tool engineered to combat procrastination through focus intervals.
+
+## 🚀 Running Locally
+
+Want to explore the code? Here is how to run the project on your local machine:
 
 ```bash
+# 1. Clone the repository
+git clone [https://github.com/omshree59/my-portfolio.git](https://github.com/omshree59/my-portfolio.git)
+
+# 2. Navigate into the directory
+cd my-portfolio
+
+# 3. Install dependencies
+npm install
+
+# 4. Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
