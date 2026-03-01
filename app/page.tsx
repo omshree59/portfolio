@@ -1,6 +1,7 @@
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
 import Projects from "@/components/Projects";
+import About from "@/components/About";
 import Timeline from "@/components/Timeline";
 import InteractiveGallery from "@/components/InteractiveGallery";
 import Footer from "@/components/Footer";
@@ -15,16 +16,19 @@ export default function Home() {
         <Overlay />
       </div>
 
-      {/* 2. YOUR ORIGINAL TIMELINE */}
+      {/* 2. THE NEW ABOUT SECTION */}
+      <About />
+
+      {/* 3. YOUR ORIGINAL TIMELINE */}
       <Timeline />
 
       {/* 4. THE NEW FEATURE: YOUR CINEMATIC PHOTOS */}
       <InteractiveGallery />
       
-      {/* 3. YOUR ORIGINAL PROJECTS GRID */}
+      {/* 5. YOUR ORIGINAL PROJECTS GRID */}
       <Projects />
       
-      {/* 5. YOUR FOOTER */}
+      {/* 6. YOUR FOOTER */}
       <Footer />
       
     </main>
