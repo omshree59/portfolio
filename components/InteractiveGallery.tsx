@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// The data for your 6 cinematic slides
+// 1. ADDED: "topText" to every slide so the header changes!
 const slides = [
   {
     id: 0,
+    topText: "Chapter 01 — The Genesis",
     centerText: "THE VISION",
     leftLabel: "Future Goals",
     rightLabel: "Software Engineer",
@@ -13,6 +14,7 @@ const slides = [
   },
   {
     id: 1,
+    topText: "Chapter 02 — The Mind",
     centerText: "INTELLIGENCE",
     leftLabel: "AI & Machine Learning",
     rightLabel: "Algorithms & Logic",
@@ -20,13 +22,15 @@ const slides = [
   },
   {
     id: 2,
+    topText: "Chapter 03 — The Architecture",
     centerText: "THE BUILDER",
-    leftLabel: "C, C++ & Python",
+    leftLabel: "Java,Javascript & Python",
     rightLabel: "System Architecture",
     image: "/slide3.jpg",
   },
   {
     id: 3,
+    topText: "Chapter 04 — The Collective",
     centerText: "OPEN SOURCE",
     leftLabel: "Community Contributions",
     rightLabel: "Hackathon Competitor",
@@ -34,6 +38,7 @@ const slides = [
   },
   {
     id: 4,
+    topText: "Chapter 05 — The Player",
     centerText: "OFF SCREEN",
     leftLabel: "Modern Warfare 3",
     rightLabel: "Hogwarts Legacy",
@@ -41,6 +46,7 @@ const slides = [
   },
   {
     id: 5,
+    topText: "Chapter 06 — The Observer",
     centerText: "DOWNTIME",
     leftLabel: "Cinematography",
     rightLabel: "K-Drama Enthusiast",
@@ -73,9 +79,19 @@ export default function InteractiveGallery() {
       {/* Interface Wrapper */}
       <div className="relative z-10 h-full w-full max-w-7xl mx-auto flex flex-col justify-between px-6 py-12 md:px-20 md:py-20">
         
-        {/* Top Header Placeholder (Keeps spacing balanced) */}
-        <div className="text-center tracking-widest text-xs font-mono text-zinc-400 uppercase">
-          Chapter 02 — The Creator
+        {/* 2. DYNAMIC ANIMATED TOP HEADER */}
+        <div className="text-center tracking-widest text-xs font-mono text-zinc-400 uppercase h-6 overflow-hidden flex justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`topText-${active}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              {slides[active].topText}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Middle Content: Menus & Center Text */}
