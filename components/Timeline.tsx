@@ -33,7 +33,7 @@ export default function Timeline() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-// UPGRADED PHYSICS: Higher stiffness and lower mass for a much faster, snappier light
+  // UPGRADED PHYSICS: Higher stiffness and lower mass for a much faster, snappier light
   const smoothX = useSpring(mouseX, { stiffness: 150, damping: 15, mass: 0.1 });
   const smoothY = useSpring(mouseY, { stiffness: 150, damping: 15, mass: 0.1 });
 
@@ -48,8 +48,11 @@ export default function Timeline() {
       className="bg-[#121212] py-32 px-6 md:px-20 relative z-20 overflow-hidden group"
       onMouseMove={handleMouseMove}
     >
+      {/* 1. THE AMBIENT GLOW: Fixes the deep black void at the top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-orange-500/5 blur-[120px] pointer-events-none" />
+
       {/* THE MAGIC CURSOR REVEAL LAYER */}
-     <motion.div
+      <motion.div
         className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none opacity-0 group-hover:opacity-80 brightness-125 transition-opacity duration-1000"
         style={{
           backgroundImage: "url(/slide7.jpg)", // <-- CHANGE THIS TO YOUR PREFERRED PHOTO
@@ -59,14 +62,37 @@ export default function Timeline() {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.h3 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }} 
-          className="text-4xl md:text-6xl font-bold text-white mb-24 tracking-tight text-center"
-        >
-          The Journey
-        </motion.h3>
+        
+        {/* Header & Scroll Cue Container */}
+        <div className="relative z-10 flex flex-col items-center justify-center mb-16 md:mb-24">
+          <motion.h3 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }} 
+            className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight text-center"
+          >
+            The Journey
+          </motion.h3>
+
+          {/* 2. THE SCROLL CUE: Animated laser line shooting downwards */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center gap-3"
+          >
+            <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-medium">
+              Scroll to explore
+            </span>
+            <div className="w-[1px] h-16 bg-white/5 relative overflow-hidden">
+              <motion.div 
+                animate={{ y: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-orange-500 to-transparent"
+              />
+            </div>
+          </motion.div>
+        </div>
 
         <div className="relative">
           {/* Vertical Line */}
