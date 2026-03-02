@@ -1,34 +1,31 @@
+"use client"; // 🔥 THE FIX: This tells Next.js it's safe to use browser-only dynamic imports here
+
+import dynamic from "next/dynamic";
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
-import Projects from "@/components/Projects";
-import About from "@/components/About";
-import Timeline from "@/components/Timeline";
-import InteractiveGallery from "@/components/InteractiveGallery";
 import Footer from "@/components/Footer";
+
+// Lazy load all heavy components below the fold to make the initial load lightning fast
+const About = dynamic(() => import("@/components/About"), { ssr: false });
+const InteractiveGallery = dynamic(() => import("@/components/InteractiveGallery"), { ssr: false });
+const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
+const Projects = dynamic(() => import("@/components/Projects"), { ssr: false });
 
 export default function Home() {
   return (
     <main className="bg-[#121212] min-h-screen selection:bg-orange-500/30">
       
-      {/* 1. YOUR ORIGINAL 3D SCROLL INTRO */}
+      {/* 1. LOADS INSTANTLY: YOUR ORIGINAL 3D SCROLL INTRO */}
       <div className="relative w-full">
         <ScrollyCanvas />
         <Overlay />
       </div>
 
-      {/* 2. THE NEW ABOUT SECTION */}
+      {/* 2. LAZY LOADED IN THE BACKGROUND */}
       <About />
-
-      {/* 3. YOUR ORIGINAL TIMELINE */}
       <Timeline />
-
-      {/* 4. THE NEW FEATURE: YOUR CINEMATIC PHOTOS */}
       <InteractiveGallery />
-      
-      {/* 5. YOUR ORIGINAL PROJECTS GRID */}
       <Projects />
-      
-      {/* 6. YOUR FOOTER */}
       <Footer />
       
     </main>

@@ -10,7 +10,6 @@ export default function ScrollyCanvas() {
   
   // PERFORMANCE LOCK: Keeps track of the last drawn frame
   const lastRenderedFrame = useRef(-1);
-  
   const frameCount = 89; 
 
   const { scrollYProgress } = useScroll({
@@ -28,15 +27,31 @@ export default function ScrollyCanvas() {
 
   const frameIndex = useTransform(smoothProgress, [0, 1], [0, frameCount - 1]);
 
+  // 🔥 PERFORMANCE UPGRADE: Prioritized Loading Strategy
   useEffect(() => {
-    const loadedImages: HTMLImageElement[] = [];
-    for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
-      img.src = `/sequence/frame_${i.toString().padStart(3, '0')}_delay-0.066s.png`;
-      if (i === 0) img.onload = () => setFirstFrameReady(true);
-      loadedImages.push(img);
-    }
-    setImages(loadedImages);
+    const loadedImages: HTMLImageElement[] = new Array(frameCount);
+    
+    // 1. Instantly load ONLY the first frame
+    const firstImg = new Image();
+    firstImg.src = `/sequence/frame_000_delay-0.066s.png`;
+    firstImg.onload = () => {
+      loadedImages[0] = firstImg;
+      setImages([...loadedImages]);
+      setFirstFrameReady(true);
+      
+      // 2. ONLY AFTER frame 1 is painted, silently load the rest in the background
+      for (let i = 1; i < frameCount; i++) {
+        const img = new Image();
+        img.src = `/sequence/frame_${i.toString().padStart(3, '0')}_delay-0.066s.png`;
+        img.onload = () => {
+          loadedImages[i] = img;
+          // Only update state occasionally to prevent React rendering lag
+          if (i === frameCount - 1 || i % 10 === 0) {
+            setImages([...loadedImages]);
+          }
+        };
+      }
+    };
   }, []);
 
   const renderCanvas = (index: number) => {
@@ -71,14 +86,14 @@ export default function ScrollyCanvas() {
   useMotionValueEvent(frameIndex, "change", (latest) => {
     const currentFrame = Math.floor(latest);
     // PERFORMANCE LOCK: Only draw if the integer frame actually changed
-    if (currentFrame !== lastRenderedFrame.current) {
+    if (currentFrame !== lastRenderedFrame.current && images[currentFrame]) {
       renderCanvas(currentFrame);
       lastRenderedFrame.current = currentFrame;
     }
   });
 
   useEffect(() => {
-    if (firstFrameReady && images.length > 0) {
+    if (firstFrameReady && images[0]) {
       renderCanvas(0);
       lastRenderedFrame.current = 0;
     }
