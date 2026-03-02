@@ -184,7 +184,6 @@ export default function TechStack() {
                 autoComplete="off"
                 spellCheck="false"
                 className="flex-1 bg-transparent outline-none text-white font-mono caret-cyan-400"
-                autoFocus
               />
             </div>
           </div>
