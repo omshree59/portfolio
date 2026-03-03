@@ -4,10 +4,11 @@ import dynamic from "next/dynamic";
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
 import Footer from "@/components/Footer";
-const Contact = dynamic(() => import("@/components/Contact"), { ssr: false });
-const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: false });
+import Navbar from "@/components/Navbar"; 
 
 // Lazy load all heavy components below the fold to make the initial load lightning fast
+const Contact = dynamic(() => import("@/components/Contact"), { ssr: false });
+const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: false });
 const About = dynamic(() => import("@/components/About"), { ssr: false });
 const InteractiveGallery = dynamic(() => import("@/components/InteractiveGallery"), { ssr: false });
 const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
@@ -18,7 +19,12 @@ export default function Home() {
     <main className="bg-[#121212] min-h-screen selection:bg-orange-500/30">
       
       {/* 1. LOADS INSTANTLY: YOUR ORIGINAL 3D SCROLL INTRO */}
-      <div className="relative w-full">
+      {/* 🔥 FIX: Added id="home" so the Home button scrolls back here */}
+      <div id="home" className="relative w-full">
+        
+        {/* Navbar placed inside the relative hero container so it stays at the top and scrolls away! */}
+        <Navbar />
+        
         <ScrollyCanvas />
         <Overlay />
       </div>
@@ -28,8 +34,17 @@ export default function Home() {
       <Timeline />
       <InteractiveGallery />
       <TechStack />
-      <Projects />
-      <Contact />
+      
+      {/* 🔥 FIX: Wrapped Projects in id="projects" so the nav link finds it */}
+      <div id="projects">
+        <Projects />
+      </div>
+      
+      {/* 🔥 FIX: Wrapped Contact in id="contact" so the nav link finds it */}
+      <div id="contact">
+        <Contact />
+      </div>
+      
       <Footer />
       
     </main>

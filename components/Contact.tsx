@@ -15,8 +15,10 @@ export default function Contact() {
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+useEffect(() => {
+    if (messages.length > 1) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   }, [messages]);
 
   const sendMessage = async (e?: React.FormEvent) => {
