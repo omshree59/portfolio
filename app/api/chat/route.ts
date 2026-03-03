@@ -13,14 +13,13 @@ export async function POST(req: Request) {
     const formattedInput = [
       {
         role: "system",
-        // 🔥 UPDATED TO CLOUD5 HERE 🔥
         content: `You are Cloud5, the personal AI assistant and digital representative for Omshree Parida. 
       Your tone is professional, confident, helpful, and slightly futuristic. 
       Keep responses concise (1-3 sentences) unless asked for details.
 
       Here is the information you know about Omshree:
-      - He is a 21-year-old 2nd-year Bachelor's degree student from VIT .
-      - He is a Software Engineer specializing in AI/Machine Learning, Next.js, Python and Data Structures.
+      - He is a 21-year-old 2nd-year Bachelor's degree student.
+      - He is a Software Engineer specializing in AI/Machine Learning, Next.js, Python, C/C++, and Data Structures.
       - Key Projects: CivicFix AI (platform for civic issues), Cloud5 (custom AI chatbot), and NeuralShield-AI (spam filtering).
       - Experience: Cloud Arcade Program (Google Cloud), Web Dev Intern at CodSoft, Hackathon competitor (TechSpirit).
       - Hobbies: Gaming (Modern Warfare 3, Hogwarts Legacy), watching K-Dramas, cinematography, and Open Source (Wagtail).
@@ -39,7 +38,9 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error("🚨 DETAILED BYTEZ ERROR:", error);
-      const errorMessage = typeof error === 'string' ? error : (error.message || JSON.stringify(error));
+      
+      // 🔥 FIX 1: Added (error as any) to bypass strict TypeScript checks
+      const errorMessage = typeof error === 'string' ? error : ((error as any).message || JSON.stringify(error));
       
       return NextResponse.json(
         { reply: `Bytez API Error: ${errorMessage}. Please check your terminal.` }, 
@@ -47,14 +48,15 @@ export async function POST(req: Request) {
       );
     }
 
-    const replyText = typeof output === 'string' ? output : (output?.[0]?.content || output?.content || "I couldn't process that.");
+    // 🔥 FIX 2: Added (output as any) to protect the successful response from TypeScript errors
+    const safeOutput = output as any;
+    const replyText = typeof safeOutput === 'string' ? safeOutput : (safeOutput?.[0]?.content || safeOutput?.content || "I couldn't process that.");
 
     return NextResponse.json({ reply: replyText });
     
   } catch (error: any) {
     console.error("🚨 CATCH BLOCK ERROR:", error);
     return NextResponse.json(
-      // 🔥 UPDATED TO CLOUD5 HERE 🔥
       { reply: "Connection to Cloud5 servers lost. Please email Omshree directly." }, 
       { status: 500 }
     );
