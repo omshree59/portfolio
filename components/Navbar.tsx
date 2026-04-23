@@ -9,13 +9,23 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="absolute top-6 right-6 md:right-12 z-[999]"
+      className="fixed top-6 left-6 right-6 md:left-12 md:right-12 z-[999] flex flex-col items-end gap-2"
     >
-      {/* 🔥 FIX: Changed to bg-black/90, added a bolder border, and heavy drop shadow */}
+      {/* Brand Icon / Logo */}
+      <div className="flex items-center gap-3 group cursor-pointer">
+        <div className="w-10 h-10 rounded-full bg-black/80 backdrop-blur-xl border border-white/10 flex items-center justify-center transition-transform duration-500 group-hover:rotate-[360deg]">
+          <img src="/brand-icon.svg" alt="Logo" className="w-6 h-6" />
+        </div>
+        <span className="hidden md:block font-black text-xl tracking-tighter text-white uppercase group-hover:text-cyan-400 transition-colors">
+          OM<span className="text-orange-500">SHREE</span>
+        </span>
+      </div>
+
+      {/* Navigation Links */}
       <div className="flex items-center gap-1 p-1.5 rounded-full bg-black/90 backdrop-blur-2xl border border-white/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
         {navItems.map((item) => (
           <a
