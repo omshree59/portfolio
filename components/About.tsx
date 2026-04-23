@@ -44,22 +44,22 @@ export default function About() {
           <motion.div style={{ y: leftColumnY }} className="flex flex-col gap-4 md:gap-8 w-1/2 pt-12">
             <div 
               className="w-full h-[280px] md:h-[400px] rounded-2xl bg-cover bg-center transition-all duration-700 hover:sepia hover:contrast-125 hover:saturate-50 shadow-2xl"
-              style={{ backgroundImage: "url(/about1.jpg)" }}
+              style={{ backgroundImage: "url(https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/about1.jpg)" }}
             />
             <div 
               className="w-full h-[280px] md:h-[400px] rounded-2xl bg-cover bg-center transition-all duration-700 hover:sepia hover:contrast-125 hover:saturate-50 shadow-2xl"
-              style={{ backgroundImage: "url(/about2.jpg)" }}
+              style={{ backgroundImage: "url(https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/about2.jpg)" }}
             />
           </motion.div>
 
           <motion.div style={{ y: rightColumnY }} className="flex flex-col gap-4 md:gap-8 w-1/2 pb-12">
             <div 
               className="w-full h-[280px] md:h-[400px] rounded-2xl bg-cover bg-center transition-all duration-700 hover:sepia hover:contrast-125 hover:saturate-50 shadow-2xl"
-              style={{ backgroundImage: "url(/about3.jpg)" }}
+              style={{ backgroundImage: "url(https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/about3.jpg)" }}
             />
             <div 
               className="w-full h-[280px] md:h-[400px] rounded-2xl bg-cover bg-center transition-all duration-700 hover:sepia hover:contrast-125 hover:saturate-50 shadow-2xl"
-              style={{ backgroundImage: "url(/about4.jpg)" }}
+              style={{ backgroundImage: "url(https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/about4.jpg)" }}
             />
           </motion.div>
         </div>

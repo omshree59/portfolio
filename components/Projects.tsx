@@ -5,6 +5,17 @@ import { Github, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 
 const projects = [
   {
+    title: "Scan-Pay Go",
+    description: "A modern web application prototype for an interactive checkout and payment system.",
+    tech: ["Next.js", "React", "Tailwind"],
+    liveLink: "https://scan-pay-go-black.vercel.app/",
+    githubLink: "https://github.com/omshree59/Scan-Pay-Go",
+    image: "/scan-pay-go.png",
+    sector: "FIN_TECH_PROTO",
+    lapTime: "1:21.345",
+    speedTrap: "335 km/h",
+  },
+  {
     title: "CivicFix AI",
     description: "An intelligent platform streamlining civic issue reporting and resolution using advanced Machine Learning algorithms.",
     tech: ["Next.js", "AI/ML", "Tailwind", "Python"],
