@@ -4,6 +4,18 @@ import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-mot
 const timelineData = [
   {
     date: "2026",
+    title: "ASL Translation AI Development",
+    organization: "LexiCue (Independent Project)",
+    description: "Engineered a core American Sign Language (ASL) to text conversion system. Dedicated over 2 months to developing the architecture and actively training custom Machine Learning datasets to ensure high-accuracy, real-time gesture recognition.",
+  },
+  {
+    date: "2026",
+    title: "Competitive Programming Milestones",
+    organization: "HackerRank",
+    description: "Secured a 4-star badge in Python and a 3-star badge in Problem Solving. Successfully completed the 30 Days of Code challenge, demonstrating a strong foundation in algorithms and consistent coding practices.",
+  },
+  {
+    date: "2026",
     title: "Hackathon Competitor",
     organization: "TechSpirit (Google Dev) & Code to Conquer",
     description: "Participated in high-stakes hackathons, engineering modern digital solutions and pushing the boundaries of rapid development.",

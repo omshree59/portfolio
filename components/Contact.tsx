@@ -9,17 +9,98 @@ type Message = { role: "user" | "ai"; content: string };
 export default function Contact() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
-    { role: "ai", content: "Hello. I am Cloud5, Omshree's personal AI agent. He is currently coding, but I can answer any questions you have about his experience, projects, or tech stack. What would you like to know?" }
+    { role: "ai", content: "System online. I am Cloud5, Omshree's personal AI agent. You can ask me about his tech stack, his latest projects, or how to hire him. What's on your mind?" }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-useEffect(() => {
+  useEffect(() => {
     if (messages.length > 1) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [messages]);
+
+  // 🔥 The Ultra-Expanded Client-Side Bot Logic
+  const generateBotResponse = (userInput: string) => {
+    const input = userInput.toLowerCase();
+    const getRandom = (responses: string[]) => responses[Math.floor(Math.random() * responses.length)];
+    const isMatch = (pattern: RegExp) => pattern.test(input);
+
+    // --- 1. Small Talk & Greetings ---
+    if (isMatch(/\b(hi|hello|hey|sup|yo|hii+|heyy+|greetings|morning|evening|afternoon)\b/)) {
+      return getRandom([
+        "Access granted! I'm Cloud5, Omshree's digital twin. What do you want to know about him?",
+        "Connection established! I can tell you about Omshree's tech stack, his open-source work, or how to reach him. Pick one!",
+        "Hey there! I'm running live on Omshree's portfolio. Ask me about his 3D web dev skills or his custom LLM architecture!"
+      ]);
+    }
+    
+    if (isMatch(/\b(how are you|whats up|what's up|doing well|hows it|how's it)\b/)) {
+      return getRandom([
+        "I'm just a few lines of JavaScript, but my servers are running perfectly! How can I help you?",
+        "Operating at 100% efficiency! I'm here to answer your questions about Omshree. Where should we start?"
+      ]);
+    }
+
+    // --- 2. Broad / Vague Queries ("tell me stuffs") ---
+    if (isMatch(/\b(stuff|stuffs|anything|everything|tell me|more|something|details|info|information|what else|give me|know|explain)\b/)) {
+      return getRandom([
+        "I hold a lot of data on Omshree! I can decrypt files on his 'Projects', 'Skills', 'Education', or what he does for 'Fun'. Which sector should we open?",
+        "I can tell you a lot of things! From his custom AI models to his 8.77 CGPA, or even his K-drama addiction. What do you want to dive into?",
+        "Let's narrow it down. Do you want to hear about the code he writes, the apps he builds, or how to contact him directly?"
+      ]);
+    }
+
+    // --- 3. Projects & Work ---
+    if (isMatch(/\b(project|projects|work|build|builds|portfolio|made|civicfix|civicfixai|git-city|cloud9|app|apps|website|software)\b/)) {
+      return getRandom([
+        "Omshree has built some wild things! 'CivicFixAI' is a civic-tech app for community issues, and 'Git-city' is a Cyberpunk 3D GitHub visualization using Three.js.",
+        "You should ask him about 'Cloud9'—he built a custom LLM architecture from scratch without external APIs! He also develops stunning 3D web environments.",
+        "He's always building. Right now he's prepping for GSoC 2026 with Wagtail, but he's also known for 'Automated-Banking' and 'CivicFixAI'."
+      ]);
+    }
+
+    // --- 4. Tech Stack & Skills ---
+    if (isMatch(/\b(skill|skills|tech|stack|language|languages|react|python|tailwind|three\.js|code|coding|framework|database|backend|frontend|ai|machine learning)\b/)) {
+      return getRandom([
+        "His core stack is dangerous: React, Tailwind CSS, Three.js, Vite, and Python. He thrives at the intersection of complex algorithms and sleek UIs.",
+        "He's a full-stack engineer with a heavy focus on AI and 3D environments. Ask him about prompt engineering, LLM architecture, or Big O notation!"
+      ]);
+    }
+
+    // --- 5. Education & Background ---
+    if (isMatch(/\b(education|college|degree|cgpa|university|study|student|who is|about|background|history|learn)\b/)) {
+      return getRandom([
+        "He's currently crushing his undergrad with an 8.77 CGPA! Long term, he's looking at pursuing a Master's degree abroad in Germany.",
+        "Omshree Parida is a 2nd-year software engineering student. He's an active open-source contributor and is always hunting for high-stakes hackathons."
+      ]);
+    }
+
+    // --- 6. Hobbies & Interests ---
+    if (isMatch(/\b(hobby|hobbies|fun|free time|game|games|gaming|k-drama|korean|play|outside|movie|movies|watch)\b/)) {
+      return getRandom([
+        "When he's offline, he's usually grinding Modern Warfare 3 or studying cinematography.",
+        "Believe it or not, he's super into Korean dramas! He's even considered writing K-drama reviews for platforms like Wattpad and Inkitt."
+      ]);
+    }
+
+    // --- 7. Contact / Connect ---
+    if (isMatch(/\b(connect|contact|email|reach|hire|message|linkedin|talk|call|resume|cv|social)\b/)) {
+      return getRandom([
+        "Want to bypass the bot and talk to the creator? Email him at paridaomshree@gmail.com. He usually replies faster than I compile!",
+        "I can only say so much. If you want the real Omshree, drop a line at paridaomshree@gmail.com. You can also find him on GitHub (@omshree59).",
+        "Establishing direct line... Just kidding, I can't do that yet. But you can easily reach him at paridaomshree@gmail.com!"
+      ]);
+    }
+
+    // --- 8. Fallback (Conversational instead of robotic) ---
+    return getRandom([
+      "That's a unique question! My current dataset doesn't have the exact answer, but Omshree definitely would. You should email him at paridaomshree@gmail.com.",
+      "I'm still learning how to answer that! If you want to know more, shooting Omshree an email at paridaomshree@gmail.com is your best bet.",
+      "Hmm, I might need an update to answer that one. In the meantime, you can talk to the developer himself at paridaomshree@gmail.com!"
+    ]);
+  };
 
   const sendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -27,36 +108,25 @@ useEffect(() => {
 
     const userMessage = input.trim();
     setInput("");
+    
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setIsLoading(true);
 
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          message: userMessage, 
-          history: messages.slice(1) 
-        }),
-      });
+    const typingDelay = Math.floor(Math.random() * 800) + 700;
 
-      const data = await response.json();
-      setMessages((prev) => [...prev, { role: "ai", content: data.reply }]);
-    } catch (error) {
-      setMessages((prev) => [...prev, { role: "ai", content: "System error. Please contact Omshree directly via email." }]);
-    } finally {
+    setTimeout(() => {
+      const botReply = generateBotResponse(userMessage);
+      setMessages((prev) => [...prev, { role: "ai", content: botReply }]);
       setIsLoading(false);
-    }
+    }, typingDelay);
   };
 
   return (
     <section className="relative w-full border-t-2 border-cyan-500/50 isolate z-[100] bg-black">
       <ParticleEffectWrapper>
         
-        {/* 🔥 FIX: Added 'max-w-6xl mx-auto px-6' back to this div so it centers properly 🔥 */}
         <div className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-12 lg:gap-16 items-start lg:items-center py-24 lg:py-32">
           
-          {/* Left Side: Context / Copy */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -77,7 +147,6 @@ useEffect(() => {
             </p>
           </motion.div>
 
-          {/* Right Side: The Chat Window */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +159,6 @@ useEffect(() => {
             >
               <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent z-20" />
 
-              {/* Chat Header */}
               <div 
                 className="w-full bg-white/5 border-b border-white/10 flex items-center px-6 gap-4 relative z-10"
                 style={{ height: '80px', flexShrink: 0 }}
@@ -107,7 +175,6 @@ useEffect(() => {
                 </div>
               </div>
 
-              {/* Chat Messages Area */}
               <div className="w-full flex-1 overflow-y-auto p-5 md:p-6 flex flex-col gap-5 custom-scrollbar scroll-smooth relative z-10">
                 {messages.map((msg, i) => (
                   <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
@@ -120,7 +187,6 @@ useEffect(() => {
                   </div>
                 ))}
                 
-                {/* Typing Indicator */}
                 {isLoading && (
                   <div className="flex gap-3 flex-row">
                     <div className="w-8 h-8 rounded-full bg-[#111] border border-cyan-500/30 flex items-center justify-center shrink-0">
@@ -136,7 +202,6 @@ useEffect(() => {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Input Area */}
               <div 
                 className="w-full bg-black/60 border-t border-white/10 p-4 relative z-10"
                 style={{ height: '80px', flexShrink: 0 }}

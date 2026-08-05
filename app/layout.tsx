@@ -6,14 +6,21 @@ export const metadata: Metadata = {
   description: "Official Portfolio of Omshree Parida - Software Engineer & Creative Developer.",
 };
 
+import ScrollProgress from "@/components/ScrollProgress";
+import AmbientBackground from "@/components/AmbientBackground";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className="antialiased font-sans text-white bg-[#121212] relative">
+        <AmbientBackground />
+        
+        {children}
+      </body>
     </html>
   );
 }
