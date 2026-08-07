@@ -106,7 +106,7 @@ export default function About() {
             className="backdrop-blur-sm bg-black/20 p-6 md:p-8 rounded-2xl border border-white/5"
           >
             <h3 className="text-2xl font-bold text-white mb-4 drop-shadow-md">
-              I'm Omshree Parida.
+              I am Omshree Parida.
             </h3>
             <p className="text-zinc-300 text-lg leading-relaxed mb-6 drop-shadow-md">
               A 3rd-year college student and software engineer obsessed with building intelligent, high-performance digital experiences. From developing custom AI architectures like Cloud9 to competing in high-stakes hackathons, I thrive at the intersection of complex algorithms and sleek user interfaces.
