@@ -78,10 +78,10 @@ export default function About() {
               {[0, 90, 180, 270].map((deg, index) => (
                 <div
                   key={index}
-                  className="absolute inset-0 flex flex-col justify-center" // Removed blur and background
+                  className="absolute inset-0 flex flex-col justify-center"
                   style={{
                     transform: `rotateX(${deg}deg) translateZ(135px)`, 
-                    backfaceVisibility: "hidden", // THE MAGIC FIX: Hides the back text!
+                    backfaceVisibility: "hidden", 
                     WebkitBackfaceVisibility: "hidden", 
                   }}
                 >
@@ -109,10 +109,10 @@ export default function About() {
               I'm Omshree Parida.
             </h3>
             <p className="text-zinc-300 text-lg leading-relaxed mb-6 drop-shadow-md">
-              A 2nd-year college student and software engineer obsessed with building intelligent, high-performance digital experiences. From developing custom AI architectures like Cloud9 to competing in high-stakes hackathons, I thrive at the intersection of complex algorithms and sleek user interfaces.
+              A 3rd-year college student and software engineer obsessed with building intelligent, high-performance digital experiences. From developing custom AI architectures like Cloud9 to competing in high-stakes hackathons, I thrive at the intersection of complex algorithms and sleek user interfaces.
             </p>
             <p className="text-zinc-400 text-base leading-relaxed drop-shadow-md">
-              When I'm not writing Python or tuning machine learning models, you'll find me contributing to open-source software, grinding in Modern Warfare 3, or studying cinematography. I don't just write code—I engineer solutions.
+              When I am  not writing Python or tuning machine learning models, you will find me contributing to open-source software, grinding in Modern Warfare 3, or studying cinematography. I don't just write code—I engineer solutions.
             </p>
           </motion.div>
 
