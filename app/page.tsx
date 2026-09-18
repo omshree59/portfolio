@@ -37,11 +37,9 @@ export default function Home() {
   const [isHeroReady, setIsHeroReady] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   
-  // Scroll hooks for buttery smooth hero exit parallax
+  // Scroll hook for smooth hero fade-out on scroll
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
-  const heroScale = useTransform(scrollY, [0, 500], [1, 0.95]);
 
   // 🔥 Lock the scrollbar while the hero is loading so users can't scroll into the void
   useEffect(() => {
@@ -57,8 +55,8 @@ export default function Home() {
       
       <motion.div 
         id="home" 
-        className="relative w-full h-screen will-change-transform will-change-opacity origin-bottom"
-        style={shouldReduceMotion ? {} : { opacity: heroOpacity, y: heroY, scale: heroScale }}
+        className="relative w-full h-screen will-change-opacity"
+        style={shouldReduceMotion ? {} : { opacity: heroOpacity }}
       >
         <Navbar />
         {/* Pass the function that flips the switch when the iframe finishes */}
