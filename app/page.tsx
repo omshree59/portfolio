@@ -14,6 +14,21 @@ const InteractiveGallery = dynamic(() => import("@/components/InteractiveGallery
 const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
 const Projects = dynamic(() => import("@/components/Projects"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+const CircularGallery = dynamic(() => import("@/components/CircularGallery"), { ssr: false });
+
+const galleryItems = [
+  { image: "/about1.jpg", text: "Moments" },
+  { image: "/slide1.jpg", text: "Vision" },
+  { image: "/about2.jpg", text: "Hustle" },
+  { image: "/slide2.jpg", text: "Focus" },
+  { image: "/about3.jpg", text: "Drive" },
+  { image: "/slide3.jpg", text: "Create" },
+  { image: "/about4.jpg", text: "Build" },
+  { image: "/slide4.jpg", text: "Explore" },
+  { image: "/slide5.jpg", text: "Inspire" },
+  { image: "/slide6.jpg", text: "Capture" },
+  { image: "/slide7.jpg", text: "Evolve" },
+];
 
 // Reusable viewport reveal component for smooth 60fps scrolling
 const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
@@ -69,6 +84,30 @@ export default function Home() {
         <div className="relative bg-[#121212] z-10">
           <ScrollReveal>
             <About />
+          </ScrollReveal>
+
+          {/* 🔥 Circular Gallery — right after About */}
+          <ScrollReveal>
+            <section className="relative bg-[#0a0a0a] py-16 md:py-24">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase">
+                  Gallery
+                </h2>
+                <p className="text-zinc-500 mt-2 text-xs md:text-sm font-mono tracking-[0.2em] uppercase">
+                  Drag or scroll to explore
+                </p>
+              </div>
+              <div style={{ height: '600px', position: 'relative' }}>
+                <CircularGallery
+                  items={galleryItems}
+                  bend={3}
+                  textColor="#ffffff"
+                  borderRadius={0.05}
+                  scrollEase={0.03}
+                  font="bold 24px sans-serif"
+                />
+              </div>
+            </section>
           </ScrollReveal>
           
           <ScrollReveal>
