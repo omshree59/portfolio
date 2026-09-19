@@ -402,7 +402,7 @@ class GalleryApp {
   boundOnTouchMove: any;
   boundOnTouchUp: any;
   boundOnKeyDown: any;
-  autoScrollSpeed: number = 0.3;
+  autoScrollSpeed: number = 0.01;
   autoScrollPaused: boolean = false;
   autoScrollResumeTimer: ReturnType<typeof setTimeout> | null = null;
 

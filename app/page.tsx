@@ -15,19 +15,21 @@ const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
 const Projects = dynamic(() => import("@/components/Projects"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 const CircularGallery = dynamic(() => import("@/components/CircularGallery"), { ssr: false });
+const Aurora = dynamic(() => import("@/components/Aurora"), { ssr: false });
 
 const galleryItems = [
-  { image: "/about1.jpg", text: "Moments" },
-  { image: "/slide1.jpg", text: "Vision" },
-  { image: "/about2.jpg", text: "Hustle" },
-  { image: "/slide2.jpg", text: "Focus" },
-  { image: "/about3.jpg", text: "Drive" },
-  { image: "/slide3.jpg", text: "Create" },
-  { image: "/about4.jpg", text: "Build" },
-  { image: "/slide4.jpg", text: "Explore" },
-  { image: "/slide5.jpg", text: "Inspire" },
-  { image: "/slide6.jpg", text: "Capture" },
-  { image: "/slide7.jpg", text: "Evolve" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt1.webp", text: "Moments" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt2.webp", text: "Vision" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt3.webp", text: "Hustle" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt4.webp", text: "Focus" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt5.webp", text: "Drive" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt6.webp", text: "Create" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt7.webp", text: "Build" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt8.webp", text: "Explore" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt9.webp", text: "Inspire" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt10.webp", text: "Capture" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt11.webp", text: "Evolve" },
+  { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt12.webp", text: "Engineer" },
 ];
 
 // Reusable viewport reveal component for smooth 60fps scrolling
@@ -88,8 +90,23 @@ export default function Home() {
 
           {/* 🔥 Circular Gallery — right after About */}
           <ScrollReveal>
-            <section className="relative bg-[#0a0a0a] py-16 md:py-24">
-              <div className="text-center mb-8">
+            <section className="relative bg-[#050508] py-16 md:py-24 overflow-hidden">
+              
+              {/* ✨ Aurora WebGL Background from React Bits */}
+              <div className="absolute inset-0 pointer-events-none opacity-40">
+                <Aurora
+                  colorStops={["#06b6d4", "#f97316", "#8b5cf6"]}
+                  amplitude={1.2}
+                  blend={0.6}
+                  speed={0.5}
+                />
+              </div>
+
+              {/* Top & bottom edge fades for seamless section blending */}
+              <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#121212] to-transparent z-10 pointer-events-none" />
+
+              <div className="relative z-20 text-center mb-8">
                 <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase">
                   Gallery
                 </h2>
@@ -97,7 +114,7 @@ export default function Home() {
                   Drag or scroll to explore
                 </p>
               </div>
-              <div style={{ height: '600px', position: 'relative' }}>
+              <div className="relative z-20" style={{ height: '600px', position: 'relative' }}>
                 <CircularGallery
                   items={galleryItems}
                   bend={3}

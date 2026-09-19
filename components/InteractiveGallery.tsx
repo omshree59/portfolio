@@ -10,7 +10,7 @@ const slides = [
     centerText: "THE VISION",
     leftLabel: "Future Goals",
     rightLabel: "Software Engineer",
-    image: "/slide1.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide1.webp",
   },
   {
     id: 1,
@@ -18,7 +18,7 @@ const slides = [
     centerText: "INTELLIGENCE",
     leftLabel: "AI & Machine Learning",
     rightLabel: "Algorithms & Logic",
-    image: "/slide2.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide2.webp",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const slides = [
     centerText: "THE BUILDER",
     leftLabel: "Java,Javascript & Python",
     rightLabel: "System Architecture",
-    image: "/slide3.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide3.webp",
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const slides = [
     centerText: "OPEN SOURCE",
     leftLabel: "Community Contributions",
     rightLabel: "Hackathon Competitor",
-    image: "/slide4.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide4.webp",
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const slides = [
     centerText: "OFF SCREEN",
     leftLabel: "Modern Warfare 3",
     rightLabel: "Hogwarts Legacy",
-    image: "/slide5.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide5.webp",
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const slides = [
     centerText: "DOWNTIME",
     leftLabel: "Cinematography",
     rightLabel: "K-Drama Enthusiast",
-    image: "/slide6.jpg",
+    image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide6.webp",
   },
 ];
 

@@ -67,7 +67,7 @@ export default function Timeline() {
       <motion.div
         className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none opacity-0 group-hover:opacity-80 brightness-125 transition-opacity duration-1000"
         style={{
-          backgroundImage: "url(/slide7.jpg)", // <-- CHANGE THIS TO YOUR PREFERRED PHOTO
+          backgroundImage: "url(https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/slide7.webp)", // <-- CHANGE THIS TO YOUR PREFERRED PHOTO
           WebkitMaskImage: useMotionTemplate`radial-gradient(500px circle at ${smoothX}px ${smoothY}px, black 0%, transparent 100%)`,
           maskImage: useMotionTemplate`radial-gradient(500px circle at ${smoothX}px ${smoothY}px, black 0%, transparent 100%)`,
         }}
