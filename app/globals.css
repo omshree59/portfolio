@@ -1,6 +1,3 @@
-html {
-  scroll-behavior: smooth;
-}
 @import "tailwindcss";
 
 :root {
@@ -12,10 +9,22 @@ body {
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.9);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
 }
 
 /* Gallery aurora drift animations */
@@ -37,6 +46,18 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   .animate-\\[drift1_20s_ease-in-out_infinite\\],
   .animate-\\[drift2_25s_ease-in-out_infinite\\],
   .animate-\\[drift3_18s_ease-in-out_infinite\\] {

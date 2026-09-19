@@ -136,13 +136,13 @@ export default function Contact() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
               <Sparkles size={14} /> Available 24/7
             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-lg">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-lg">
               Let's Talk.
             </h2>
             <p className="text-zinc-300 text-lg leading-relaxed mb-8">
               Traditional contact forms are boring. I built <strong className="text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">Cloud5</strong>, a custom AI agent trained entirely on my resume, skills, and personality. 
             </p>
-            <p className="text-zinc-500 text-sm">
+            <p className="text-zinc-400 text-sm">
               Feel free to interview it, ask about my tech stack, or request my direct contact information.
             </p>
           </motion.div>
@@ -155,7 +155,7 @@ export default function Contact() {
           >
             <div 
               className="w-full max-w-lg bg-[#0a0a0c]/80 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(6,182,212,0.15)] flex flex-col overflow-hidden relative z-50"
-              style={{ height: '550px' }}
+              style={{ minHeight: '500px', height: 'clamp(500px, 70vh, 550px)' }}
             >
               <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent z-20" />
 
@@ -171,7 +171,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-base tracking-wide leading-tight">Cloud5 AI</h3>
-                  <p className="text-cyan-400 text-[10px] font-bold uppercase tracking-wider mt-0.5">Agent Online</p>
+                  <p className="text-cyan-300 text-xs font-bold uppercase tracking-wider mt-0.5">Agent Online</p>
                 </div>
               </div>
 
@@ -212,13 +212,15 @@ export default function Contact() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask Cloud5..."
-                    className="w-full bg-[#111] text-white text-sm rounded-full pl-5 pr-12 py-3.5 outline-none border border-white/10 focus:border-cyan-500/50 transition-colors shadow-inner"
+                    aria-label="Ask Cloud5 a question"
+                    className="w-full bg-[#111] text-white text-sm rounded-full pl-5 pr-12 py-3.5 outline-none border border-white/10 focus:border-cyan-500/50 focus-visible:ring-2 focus-visible:ring-cyan-400/60 transition-colors shadow-inner"
                     disabled={isLoading}
                   />
                   <button 
                     type="submit" 
                     disabled={!input.trim() || isLoading}
-                    className="absolute right-1.5 w-9 h-9 rounded-full bg-cyan-500 flex items-center justify-center text-black hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-[0_0_10px_rgba(6,182,212,0.4)]"
+                    aria-label="Send message"
+                    className="absolute right-1.5 w-9 h-9 rounded-full bg-cyan-500 flex items-center justify-center text-black hover:bg-cyan-400 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed transition-all shadow-[0_0_10px_rgba(6,182,212,0.4)]"
                   >
                     <Send size={15} className="ml-0.5" />
                   </button>

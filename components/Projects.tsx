@@ -445,7 +445,7 @@ export default function Projects() {
         </p>
       </motion.div>
 
-      <div className="relative w-full max-w-5xl mx-auto h-[520px] md:h-[480px] flex items-center justify-center z-30 px-4">
+      <div className="relative w-full max-w-5xl mx-auto h-[560px] md:h-[500px] flex items-center justify-center z-30 px-3 md:px-4">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           {showCard && (
             <motion.div
@@ -464,12 +464,12 @@ export default function Projects() {
                 if (offset.x < -60) nextSlide();
                 else if (offset.x > 60) prevSlide();
               }}
-              className="absolute w-[92%] md:w-[850px] cursor-grab active:cursor-grabbing"
+              className="absolute w-[94%] md:w-[850px] cursor-grab active:cursor-grabbing"
             >
             <SpotlightCard className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-black/40 backdrop-blur-xl shadow-[0_0_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)]">
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent z-10" />
               <div className="flex flex-col md:flex-row relative z-10">
-                <div className="relative w-full md:w-[55%] h-56 md:h-[420px] overflow-hidden">
+                <div className="relative w-full md:w-[55%] h-52 sm:h-56 md:h-[420px] overflow-hidden">
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
                     style={{ backgroundImage: `url(${project.image})` }}
@@ -499,7 +499,7 @@ export default function Projects() {
                     <h3 className="text-2xl md:text-3xl font-black text-white mb-3 tracking-tight uppercase leading-tight relative cursor-pointer hover:text-cyan-400 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-white/40 text-sm leading-relaxed mb-6 font-light pointer-events-none">
+                    <p className="text-white/65 text-sm leading-relaxed mb-6 font-light pointer-events-none">
                       {project.description}
                     </p>
                     <div className="grid grid-cols-2 gap-3 mb-6 font-mono text-[10px] pointer-events-none">
@@ -519,7 +519,8 @@ export default function Projects() {
                     {project.liveLink ? (
                       <a
                         href={project.liveLink} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm bg-cyan-400 text-black text-xs font-bold uppercase tracking-wider hover:bg-cyan-300 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] transition-all duration-200"
+                        aria-label={`Open live deployment for ${project.title}`}
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm bg-cyan-400 text-black text-xs font-bold uppercase tracking-wider hover:bg-cyan-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] focus-visible:-translate-y-0.5 transition-all duration-200"
                       >
                         <Eye size={14} /> Deploy
                       </a>
@@ -528,7 +529,8 @@ export default function Projects() {
                     {project.githubLink ? (
                        <a
                         href={project.githubLink} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm bg-white/5 text-white/70 text-xs font-semibold uppercase tracking-wider hover:bg-white/10 hover:text-white transition-all duration-200 border border-white/10"
+                        aria-label={`View source code for ${project.title}`}
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-sm bg-white/10 text-white/80 text-xs font-semibold uppercase tracking-wider hover:bg-white/15 hover:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 transition-all duration-200 border border-white/10"
                       >
                         <Github size={14} /> Source
                       </a>
@@ -546,7 +548,8 @@ export default function Projects() {
       <div className="relative z-40 flex items-center gap-6 mt-10 md:mt-14">
         <button
           onClick={() => { stopAutoAdvance(); prevSlide(); }}
-          className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center text-white/50 hover:text-cyan-400 hover:border-cyan-400/30 transition-all duration-200 bg-black/40 backdrop-blur-sm"
+          aria-label="View previous project"
+          className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-cyan-400 hover:border-cyan-400/30 transition-all duration-200 bg-black/40 backdrop-blur-sm"
         >
           <ChevronLeft size={18} />
         </button>
@@ -555,6 +558,7 @@ export default function Projects() {
             <button
               key={i}
               onClick={() => { stopAutoAdvance(); setDirection(i > currentIndex ? 1 : -1); setCurrentIndex(i); }}
+              aria-label={`Go to project ${i + 1}`}
               className={`h-1 rounded-full transition-all duration-300 ${
                 currentIndex === i
                   ? "bg-cyan-400 w-8 shadow-[0_0_8px_rgba(0,240,255,0.4)]"
@@ -565,7 +569,8 @@ export default function Projects() {
         </div>
         <button
           onClick={() => { stopAutoAdvance(); nextSlide(); }}
-          className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center text-white/50 hover:text-cyan-400 hover:border-cyan-400/30 transition-all duration-200 bg-black/40 backdrop-blur-sm"
+          aria-label="View next project"
+          className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-cyan-400 hover:border-cyan-400/30 transition-all duration-200 bg-black/40 backdrop-blur-sm"
         >
           <ChevronRight size={18} />
         </button>

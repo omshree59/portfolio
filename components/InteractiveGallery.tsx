@@ -98,12 +98,12 @@ export default function InteractiveGallery() {
         <div className="flex-1 flex items-center justify-between relative">
           
           {/* Left Menu */}
-          <div className="flex flex-col gap-3 md:gap-5 text-xs md:text-sm tracking-wider uppercase font-medium text-zinc-500 z-20">
+          <div className="hidden md:flex flex-col gap-3 md:gap-5 text-xs md:text-sm tracking-wider uppercase font-medium text-zinc-400 z-20">
             {slides.map((s, i) => (
               <button 
                 key={`left-${i}`}
                 onClick={() => setActive(i)} 
-                className={`text-left transition-all duration-300 flex items-center gap-3 ${active === i ? 'text-white translate-x-2' : 'hover:text-zinc-300 hover:translate-x-1'}`}
+                className={`text-left transition-all duration-300 flex items-center gap-3 ${active === i ? 'text-white translate-x-2' : 'hover:text-zinc-200 hover:translate-x-1'}`}
               >
                 {active === i && <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />}
                 {s.leftLabel}
@@ -112,7 +112,7 @@ export default function InteractiveGallery() {
           </div>
 
           {/* Center Absolute Text */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full pointer-events-none z-10 flex justify-center">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full pointer-events-none z-10 flex justify-center px-4">
             <AnimatePresence mode="wait">
               <motion.h2
                 key={`title-${active}`}
@@ -120,7 +120,7 @@ export default function InteractiveGallery() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -10, filter: "blur(10px)" }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-4xl md:text-7xl lg:text-8xl font-serif italic tracking-wider text-center text-white/90 drop-shadow-2xl"
+                className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-serif italic tracking-wider text-center text-white/90 drop-shadow-2xl"
               >
                 {slides[active].centerText}
               </motion.h2>
@@ -128,12 +128,12 @@ export default function InteractiveGallery() {
           </div>
 
           {/* Right Menu */}
-          <div className="flex flex-col gap-3 md:gap-5 text-xs md:text-sm tracking-wider uppercase font-medium text-zinc-500 items-end z-20">
+          <div className="hidden md:flex flex-col gap-3 md:gap-5 text-xs md:text-sm tracking-wider uppercase font-medium text-zinc-400 items-end z-20">
             {slides.map((s, i) => (
               <button 
                 key={`right-${i}`}
                 onClick={() => setActive(i)} 
-                className={`text-right transition-all duration-300 flex items-center gap-3 ${active === i ? 'text-white -translate-x-2' : 'hover:text-zinc-300 hover:-translate-x-1'}`}
+                className={`text-right transition-all duration-300 flex items-center gap-3 ${active === i ? 'text-white -translate-x-2' : 'hover:text-zinc-200 hover:-translate-x-1'}`}
               >
                 {s.rightLabel}
                 {active === i && <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />}
@@ -142,8 +142,25 @@ export default function InteractiveGallery() {
           </div>
         </div>
 
+        <div className="md:hidden flex items-center justify-center gap-2 overflow-x-auto pb-1">
+          {slides.map((slide, i) => (
+            <button
+              key={`mobile-${slide.id}`}
+              onClick={() => setActive(i)}
+              aria-label={`Show ${slide.centerText} slide`}
+              className={`px-3 py-1.5 rounded-full border text-[10px] tracking-wider uppercase whitespace-nowrap transition-colors ${
+                active === i
+                  ? "bg-white text-black border-white"
+                  : "bg-black/40 text-zinc-200 border-white/20 hover:border-white/50"
+              }`}
+            >
+              {slide.centerText}
+            </button>
+          ))}
+        </div>
+
         {/* Bottom Progress Indicator */}
-        <div className="flex items-center justify-center gap-4 text-xs tracking-widest font-mono text-zinc-400">
+        <div className="flex items-center justify-center gap-4 text-xs tracking-widest font-mono text-zinc-300">
           <span>0{active + 1}</span>
           <div className="h-[1px] w-32 bg-white/20 relative overflow-hidden">
             <motion.div

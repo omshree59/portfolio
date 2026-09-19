@@ -69,7 +69,7 @@ export default function Home() {
   }, [isHeroReady]);
 
   return (
-    <main className="bg-[#121212] min-h-screen selection:bg-cyan-500/30 overflow-hidden">
+    <main className="bg-[#121212] bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(168,85,247,0.08),transparent_35%)] min-h-screen selection:bg-cyan-500/30 overflow-hidden">
       
       <motion.div 
         id="home" 
@@ -145,13 +145,13 @@ export default function Home() {
           </ScrollReveal>
           
           <ScrollReveal>
-            <div id="projects">
+            <div id="projects" className="scroll-mt-28">
               <Projects />
             </div>
           </ScrollReveal>
           
           <ScrollReveal>
-            <div id="contact">
+            <div id="contact" className="scroll-mt-28">
               <Contact />
             </div>
           </ScrollReveal>
