@@ -44,6 +44,7 @@ export default function HeroFramer({ onLoaded }: { onLoaded: () => void }) {
         onLoad={handleLoadFinish} // 🔥 Triggers the sequence when the iframe paints
       />
 
+
       {/* 🔥 Transparent overlay: sits above the iframe so mousemove events
           reach the parent window and BlobCursor can track correctly.
           pointer-events-auto lets us capture events; the iframe is still

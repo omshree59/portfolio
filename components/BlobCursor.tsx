@@ -19,6 +19,16 @@ export default function BlobCursor() {
     const onMove = (e: MouseEvent) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
+      if (dotRef.current) {
+        dotRef.current.style.opacity = "1";
+      }
+    };
+
+    // Hide when leaving document or entering iframe
+    const onMouseOut = (e: MouseEvent) => {
+      if (e.relatedTarget === null && dotRef.current) {
+        dotRef.current.style.opacity = "0";
+      }
     };
 
     // Simple lerp loop at display refresh rate — no library overhead
@@ -34,11 +44,13 @@ export default function BlobCursor() {
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseout", onMouseOut, { passive: true });
     rafId.current = requestAnimationFrame(loop);
 
     return () => {
       document.documentElement.style.cursor = "";
       window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseout", onMouseOut);
       cancelAnimationFrame(rafId.current);
     };
   }, []);
@@ -55,8 +67,9 @@ export default function BlobCursor() {
         borderRadius: "50%",
         backgroundColor: "#f5f5f0",
         zIndex: 9999,
-        willChange: "transform",
+        willChange: "transform, opacity",
         mixBlendMode: "difference",
+        transition: "opacity 0.2s ease-in-out",
       }}
     />
   );

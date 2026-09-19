@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 // Lazy load heavy components below the fold
 const Contact = dynamic(() => import("@/components/Contact"), { ssr: false });
 const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: false });
+const Certifications = dynamic(() => import("@/components/Certifications"), { ssr: false });
 const About = dynamic(() => import("@/components/About"), { ssr: false });
 const InteractiveGallery = dynamic(() => import("@/components/InteractiveGallery"), { ssr: false });
 const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
@@ -137,6 +138,10 @@ export default function Home() {
           
           <ScrollReveal>
             <TechStack />
+          </ScrollReveal>
+          
+          <ScrollReveal>
+            <Certifications />
           </ScrollReveal>
           
           <ScrollReveal>
