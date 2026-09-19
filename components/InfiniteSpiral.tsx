@@ -226,13 +226,12 @@ const InfiniteSpiral = ({
       }}
       onPointerDown={event => {
         if (!dragEnabled || event.button !== 0) return;
-        // Don't start dragging if they are clicking a link
-        if ((event.target as HTMLElement).closest('a')) return;
         
         draggingRef.current = true;
         dragMovedRef.current = false;
         lastPointerYRef.current = event.clientY;
         targetProgressRef.current = progressRef.current;
+        event.currentTarget.setPointerCapture(event.pointerId);
         (event.currentTarget as HTMLElement).style.cursor = 'grabbing';
       }}
       onPointerMove={event => {
@@ -242,7 +241,22 @@ const InfiniteSpiral = ({
         if (Math.abs(pointerDelta) > 0.5) dragMovedRef.current = true;
         targetProgressRef.current -= pointerDelta / Math.max(verticalSpacing, 1);
       }}
-      onPointerUp={stopDragging}
+      onPointerUp={event => {
+        // If they didn't drag much, it was a click!
+        if (!dragMovedRef.current) {
+          // Find if they clicked an element with an onClick or href inside our container
+          const target = document.elementFromPoint(event.clientX, event.clientY);
+          const clickable = target?.closest('a, [onClick], .cursor-pointer') as HTMLElement;
+          if (clickable) {
+             clickable.click();
+          }
+        }
+        
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+          event.currentTarget.releasePointerCapture(event.pointerId);
+        }
+        stopDragging(event);
+      }}
       onPointerCancel={stopDragging}
       onClickCapture={event => {
         if (!dragMovedRef.current) return;
