@@ -4,6 +4,9 @@ import "./globals.css"; // <--- THIS IS THE MAGIC LINE
 export const metadata: Metadata = {
   title: "Omshree Parida | Portfolio",
   description: "Official Portfolio of Omshree Parida - Software Engineer & Creative Developer.",
+  icons: {
+    icon: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt1.webp"
+  }
 };
 
 import ScrollProgress from "@/components/ScrollProgress";
