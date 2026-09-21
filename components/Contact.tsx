@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, Bot, User, Sparkles } from "lucide-react";
 import ParticleEffectWrapper from "@/components/ui/particle-effect-for-hero";
+import TextType from "./TextType";
 
 type Message = { role: "user" | "ai"; content: string };
 
@@ -136,12 +137,26 @@ export default function Contact() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
               <Sparkles size={14} /> Available 24/7
             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-lg">
-              Let's Talk.
+            
+            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-lg min-h-[80px]">
+              <TextType 
+                text="Let's Talk."
+                typingSpeed={75}
+                loop={false}
+                showCursor={true}
+                cursorCharacter="|"
+                cursorClassName="text-cyan-400"
+              />
             </h2>
-            <p className="text-zinc-300 text-lg leading-relaxed mb-8">
-              Traditional contact forms are boring. I built <strong className="text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">Cloud5</strong>, a custom AI agent trained entirely on my resume, skills, and personality. 
-            </p>
+            <div className="text-zinc-300 text-lg leading-relaxed mb-8 min-h-[90px]">
+              <TextType 
+                text="Traditional contact forms are boring. I built Cloud5, a custom AI agent trained entirely on my resume, skills, and personality."
+                typingSpeed={35}
+                initialDelay={1500} // Wait for "Let's Talk" to finish before starting
+                loop={false}
+                showCursor={false}
+              />
+            </div>
             <p className="text-zinc-500 text-sm">
               Feel free to interview it, ask about my tech stack, or request my direct contact information.
             </p>

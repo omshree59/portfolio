@@ -17,6 +17,7 @@ const Projects = dynamic(() => import("@/components/Projects"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 const CircularGallery = dynamic(() => import("@/components/CircularGallery"), { ssr: false });
 const Aurora = dynamic(() => import("@/components/Aurora"), { ssr: false });
+const BentoStats = dynamic(() => import("@/components/BentoStats"), { ssr: false });
 
 const galleryItems = [
   { image: "https://raw.githubusercontent.com/omshree59/movie-assets/main/posters/abt1.webp", text: "Moments" },
@@ -150,6 +151,10 @@ export default function Home() {
             </div>
           </ScrollReveal>
           
+          <ScrollReveal>
+            <BentoStats />
+          </ScrollReveal>
+
           <ScrollReveal>
             <div id="contact">
               <Contact />

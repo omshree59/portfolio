@@ -1,11 +1,12 @@
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import PeekingCat from "./PeekingCat";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-[#121212] py-12 px-6 border-t border-white/10 relative z-20">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
         
         {/* Left side - Branding & Copyright */}
         <div className="text-zinc-500 text-sm text-center md:text-left">
@@ -57,6 +58,9 @@ export default function Footer() {
         </div>
 
       </div>
+      
+      {/* Easter Egg */}
+      <PeekingCat />
     </footer>
   );
 }
