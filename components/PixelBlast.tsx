@@ -559,7 +559,20 @@ const PixelBlast = ({
       if (t.touch) t.touch.radiusScale = liquidRadius;
     }
     prevConfigRef.current = cfg;
+    
+    let observer: IntersectionObserver | null = null;
+    if (autoPauseOffscreen && containerRef.current) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          visibilityRef.current.visible = entry.isIntersecting;
+        },
+        { threshold: 0 }
+      );
+      observer.observe(containerRef.current);
+    }
+
     return () => {
+      if (observer) observer.disconnect();
       if (threeRef.current && mustReinit) return;
       if (!threeRef.current) return;
       const t = threeRef.current;

@@ -108,13 +108,11 @@ export default function BentoStats() {
           rippleSpeed={0.4}
           rippleThickness={0.12}
           rippleIntensityScale={1.5}
-          liquid
-          liquidStrength={0.12}
-          liquidRadius={1.2}
-          liquidWobbleSpeed={5}
+          liquid={false} // Disabled for performance
           speed={0.6}
           edgeFade={0.25}
           transparent
+          autoPauseOffscreen={true}
         />
       </div>
 
@@ -123,7 +121,7 @@ export default function BentoStats() {
         <div className="mb-12 text-center md:text-left flex flex-col md:items-start items-center">
           <DepthText
             text="Stats & Life"
-            layers={34}
+            layers={12} // Reduced from 34 to 12 for massive performance gain
             depth={2.4}
             faceColor="#f8fafc" // Crisp white front face
             depthColor="#26a641" // GitHub Green depth/shadow
@@ -135,7 +133,7 @@ export default function BentoStats() {
             orbitSpeed={0.35}
             fontSize="clamp(3rem, 8vw, 5rem)"
             fontWeight={900}
-            shadow={true}
+            shadow={false} // Disabled expensive shadow for performance
             className="mb-2"
           />
           <p className="text-zinc-400 mt-2 text-lg">By the numbers and behind the scenes.</p>
