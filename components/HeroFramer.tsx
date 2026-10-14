@@ -40,22 +40,10 @@ export default function HeroFramer({ onLoaded }: { onLoaded: () => void }) {
       />
 
 
-      {/* 🔥 Transparent overlay: sits above the iframe so mousemove events
-          reach the parent window and BlobCursor can track correctly.
-          pointer-events-auto lets us capture events; the iframe is still
-          visible underneath and loads normally. */}
+      {/* Transparent overlay: sits above the iframe so mouse events reach the parent window natively */}
       <div
-        className="absolute inset-0 z-20"
+        className="absolute inset-0 z-20 pointer-events-auto"
         style={{ cursor: 'none' }}
-        onMouseMove={(e) => {
-          window.dispatchEvent(
-            new MouseEvent('mousemove', {
-              clientX: e.clientX,
-              clientY: e.clientY,
-              bubbles: true,
-            })
-          );
-        }}
       />
       
       <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#121212] via-[#121212]/80 to-transparent pointer-events-none z-20" />

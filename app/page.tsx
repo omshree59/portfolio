@@ -55,6 +55,7 @@ const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode; dela
 export default function Home() {
   // Master loading switch: gates the site until all assets and cache are initialized
   const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const [mountContent, setMountContent] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   // Scroll hook for smooth hero fade-out on scroll
@@ -67,6 +68,11 @@ export default function Home() {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
+      // Allow hero and cursor to run with zero CPU competition on transition
+      const frameId = requestAnimationFrame(() => {
+        setTimeout(() => setMountContent(true), 80);
+      });
+      return () => cancelAnimationFrame(frameId);
     }
     return () => {
       document.body.style.overflow = "unset";
@@ -91,7 +97,7 @@ export default function Home() {
       </motion.div>
 
       {/* Main Page Content: Rendered when preloader lifts to guarantee 60fps buttery smooth animation */}
-      {isAppLoaded && (
+      {mountContent && (
         <div className="relative bg-[#121212] z-10">
           <ScrollReveal>
             <About />
