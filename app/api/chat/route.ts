@@ -1,14 +1,59 @@
 import Bytez from "bytez.js";
 import { NextResponse } from "next/server";
+import {
+  checkRateLimit,
+  getClientIp,
+  verifyCsrfOrigin,
+  sanitizeText,
+} from "@/lib/security";
 
-// Initialize the Bytez SDK
+// Initialize Bytez SDK strictly server-side
 const sdk = new Bytez(process.env.BYTEZ_API_KEY || "");
 
 export async function POST(req: Request) {
   try {
-    const { message, history } = await req.json();
+    // 1. CSRF Origin Verification
+    if (!verifyCsrfOrigin(req)) {
+      return NextResponse.json(
+        { error: "Forbidden: Cross-site request rejected." },
+        { status: 403 }
+      );
+    }
 
-    const model = sdk.model("meta-llama/Meta-Llama-3-8B-Instruct"); 
+    // 2. IP Rate Limiting (Max 20 requests per minute)
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`chat_${clientIp}`, 20, 60 * 1000);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { reply: "Rate limit reached. Please wait a moment before sending more messages." },
+        { status: 429 }
+      );
+    }
+
+    // 3. Parse & Validate Payload
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ reply: "Invalid request payload." }, { status: 400 });
+    }
+
+    const { message, history } = body;
+    const cleanMessage = sanitizeText(message, 800);
+
+    if (!cleanMessage) {
+      return NextResponse.json({ reply: "Message cannot be empty." }, { status: 400 });
+    }
+
+    // Sanitize & limit conversation history (max 10 recent messages)
+    const cleanHistory = Array.isArray(history)
+      ? history.slice(-10).map((msg: any) => ({
+          role: msg?.role === "ai" ? "assistant" : "user",
+          content: sanitizeText(msg?.content, 800),
+        }))
+      : [];
+
+    const model = sdk.model("meta-llama/Meta-Llama-3-8B-Instruct");
 
     const formattedInput = [
       {
@@ -24,38 +69,39 @@ export async function POST(req: Request) {
       - Experience: Cloud Arcade Program (Google Cloud), Web Dev Intern at CodSoft, Hackathon competitor (TechSpirit).
       - Hobbies: Gaming (Modern Warfare 3, Hogwarts Legacy), watching K-Dramas, cinematography, and Open Source (Wagtail).
       
-      If a recruiter asks how to contact him, tell them to email him at: [INSERT YOUR EMAIL HERE] or connect on LinkedIn. 
-      Do NOT invent information.`
+      If a recruiter asks how to contact him, tell them to email him directly at paridaomshree@gmail.com or connect on LinkedIn. 
+      Do NOT invent personal information or secrets.`,
       },
-      ...history.map((msg: { role: string, content: string }) => ({
-        role: msg.role === "ai" ? "assistant" : "user",
-        content: msg.content
-      })),
-      { role: "user", content: message }
+      ...cleanHistory,
+      { role: "user", content: cleanMessage },
     ];
 
-    // 🔥 THE ULTIMATE TS FIX: Cast the entire response as 'any' so Vercel ignores it
     const response = (await model.run(formattedInput)) as any;
-    const error = response.error;
-    const output = response.output;
+    const error = response?.error;
+    const output = response?.output;
 
     if (error) {
-      console.error("🚨 DETAILED BYTEZ ERROR:", error);
-      const errorMessage = typeof error === 'string' ? error : (error?.message || JSON.stringify(error));
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Bytez API Error:", error);
+      }
       return NextResponse.json(
-        { reply: `Bytez API Error: ${errorMessage}. Please check your terminal.` }, 
+        { reply: "Cloud5 is operating in offline mode. You can email Omshree directly at paridaomshree@gmail.com!" },
         { status: 500 }
       );
     }
 
-    const replyText = typeof output === 'string' ? output : (output?.[0]?.content || output?.content || "I couldn't process that.");
+    const replyText =
+      typeof output === "string"
+        ? output
+        : output?.[0]?.content || output?.content || "I couldn't process that.";
 
     return NextResponse.json({ reply: replyText });
-    
   } catch (error: any) {
-    console.error("🚨 CATCH BLOCK ERROR:", error);
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Chat route error:", error);
+    }
     return NextResponse.json(
-      { reply: "Connection to Cloud5 servers lost. Please email Omshree directly." }, 
+      { reply: "Connection to Cloud5 temporarily unavailable. Please reach Omshree at paridaomshree@gmail.com." },
       { status: 500 }
     );
   }

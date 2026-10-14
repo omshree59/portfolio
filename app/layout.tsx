@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 import AmbientBackground from "@/components/AmbientBackground";
 import BlobCursor from "@/components/BlobCursor";
+import ConsoleSecurity from "@/components/ConsoleSecurity";
 
 export default function RootLayout({
   children,
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased font-sans text-white bg-[#121212] relative">
+        <ConsoleSecurity />
         <AmbientBackground />
         <BlobCursor />
         {children}
