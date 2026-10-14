@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   }
 };
 
-import ScrollProgress from "@/components/ScrollProgress";
 import AmbientBackground from "@/components/AmbientBackground";
 import BlobCursor from "@/components/BlobCursor";
 

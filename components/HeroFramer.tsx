@@ -24,12 +24,7 @@ export default function HeroFramer({ onLoaded }: { onLoaded: () => void }) {
     <div className="relative w-full h-screen bg-[#050505] overflow-hidden flex items-center justify-center">
       
       {isLoading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-0 bg-[#050505]">
-          <Loader2 className="w-12 h-12 text-zinc-400 animate-spin mb-4" />
-          <p className="text-zinc-600 text-xs font-mono uppercase tracking-widest animate-pulse">
-            Loading Experience...
-          </p>
-        </div>
+        <div className="absolute inset-0 z-0 bg-[#050505]" />
       )}
 
       <iframe

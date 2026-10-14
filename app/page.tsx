@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import HeroFramer from "@/components/HeroFramer"; 
-import Navbar from "@/components/Navbar"; 
+import HeroFramer from "@/components/HeroFramer";
+import Navbar from "@/components/Navbar";
+import LoadingScreen from "@/components/LoadingScreen";
 
-// Lazy load heavy components below the fold
+// Preload heavy components so they are already compiled & in DOM
 const Contact = dynamic(() => import("@/components/Contact"), { ssr: false });
 const TechStack = dynamic(() => import("@/components/TechStack"), { ssr: false });
 const Certifications = dynamic(() => import("@/components/Certifications"), { ssr: false });
@@ -37,7 +38,7 @@ const galleryItems = [
 // Reusable viewport reveal component for smooth 60fps scrolling
 const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const shouldReduceMotion = useReducedMotion();
-  
+
   return (
     <motion.div
       initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -52,49 +53,54 @@ const ScrollReveal = ({ children, delay = 0 }: { children: React.ReactNode; dela
 };
 
 export default function Home() {
-  // 🔥 The master switch that controls the rest of the website
-  const [isHeroReady, setIsHeroReady] = useState(false);
+  // Master loading switch: gates the site until all assets and cache are initialized
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  
+
   // Scroll hook for smooth hero fade-out on scroll
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-  // 🔥 Lock the scrollbar while the hero is loading so users can't scroll into the void
+  // Lock scrollbar while the loading screen is active
   useEffect(() => {
-    if (!isHeroReady) {
+    if (!isAppLoaded) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [isHeroReady]);
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isAppLoaded]);
 
   return (
-    <main className="bg-[#121212] min-h-screen selection:bg-cyan-500/30 overflow-hidden">
-      
-      <motion.div 
-        id="home" 
+    <main className="bg-[#121212] min-h-screen selection:bg-cyan-500/30 overflow-hidden relative">
+      {/* 🚀 Universal Preload & Device Cache Loading Screen */}
+      {!isAppLoaded && (
+        <LoadingScreen onComplete={() => setIsAppLoaded(true)} />
+      )}
+
+      {/* Hero Section */}
+      <motion.div
+        id="home"
         className="relative w-full h-screen will-change-opacity"
         style={shouldReduceMotion ? {} : { opacity: heroOpacity }}
       >
         <Navbar />
-        {/* Pass the function that flips the switch when the iframe finishes */}
-        <HeroFramer onLoaded={() => setIsHeroReady(true)} />
+        <HeroFramer onLoaded={() => {}} />
       </motion.div>
 
-      {/* 🔥 THE MAGIC: These components literally do not exist until the hero is finished. 
-          This saves massive bandwidth and guarantees the hero loads first! */}
-      {isHeroReady && (
+      {/* Main Page Content: Rendered when preloader lifts to guarantee 60fps buttery smooth animation */}
+      {isAppLoaded && (
         <div className="relative bg-[#121212] z-10">
           <ScrollReveal>
             <About />
           </ScrollReveal>
 
-          {/* 🔥 Circular Gallery — right after About */}
+          {/* Circular Gallery — right after About */}
           <ScrollReveal>
             <section className="relative bg-[#050508] py-16 md:py-24 overflow-hidden">
-              
-              {/* ✨ Aurora WebGL Background from React Bits */}
+              {/* Aurora WebGL Background */}
               <div className="absolute inset-0 pointer-events-none opacity-40">
                 <Aurora
                   colorStops={["#06b6d4", "#f97316", "#8b5cf6"]}
@@ -104,7 +110,7 @@ export default function Home() {
                 />
               </div>
 
-              {/* Top & bottom edge fades for seamless section blending */}
+              {/* Edge fades for seamless section blending */}
               <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#121212] to-transparent z-10 pointer-events-none" />
 
@@ -116,7 +122,7 @@ export default function Home() {
                   Drag or scroll to explore
                 </p>
               </div>
-              <div className="relative z-20" style={{ height: '600px', position: 'relative' }}>
+              <div className="relative z-20" style={{ height: "600px", position: "relative" }}>
                 <CircularGallery
                   items={galleryItems}
                   bend={3}
@@ -128,29 +134,29 @@ export default function Home() {
               </div>
             </section>
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <Timeline />
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <InteractiveGallery />
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <TechStack />
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <Certifications />
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <div id="projects">
               <Projects />
             </div>
           </ScrollReveal>
-          
+
           <ScrollReveal>
             <BentoStats />
           </ScrollReveal>
@@ -160,11 +166,10 @@ export default function Home() {
               <Contact />
             </div>
           </ScrollReveal>
-          
+
           <Footer />
         </div>
       )}
-      
     </main>
   );
 }
