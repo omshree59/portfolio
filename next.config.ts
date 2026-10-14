@@ -42,6 +42,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Allow local network IP access for testing on mobile and other devices during dev
+  allowedDevOrigins: [
+    "172.18.117.204",
+    "localhost",
+    "127.0.0.1",
+  ],
+
   // 1. Remove exposed source maps in production to protect TypeScript source code
   productionBrowserSourceMaps: false,
 
